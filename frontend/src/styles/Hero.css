@@ -1,0 +1,27 @@
+.hero {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #323232;
+    overflow: hidden;
+    color: white;
+}
+
+img {
+    position: absolute;
+    right: -200px;
+    top: 40%;
+}
+
+h1 {
+    font-size: 180px;
+    line-height: 190px;
+    width: 100px;
+    top: 200px;
+}
+
+p {
+    top: -100px;
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Warstwa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 941 738" style="enable-background:new 0 0 941 738;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{filter:url(#Adobe_OpacityMaskFilter);}
+	.st2{fill:#FFFFFF;}
+	.st3{mask:url(#SVGID_2_);}
+	.st4{fill:url(#SVGID_3_);}
+</style>
+<g>
+	
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="94.5734" y1="435.878" x2="815.6158" y2="327.7888" gradientTransform="matrix(0.1492 0.9888 -0.9888 0.1492 771.2823 -137.4214)">
+		<stop  offset="0" style="stop-color:#00D5A6"/>
+		<stop  offset="1" style="stop-color:#007681"/>
+	</linearGradient>
+	<circle class="st0" cx="461.64" cy="369.56" r="364.5"/>
+	<defs>
+		<filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="0.72" y="226.29" width="934.56" height="317.41">
+			
+				<feColorMatrix  type="matrix" values="-1 0 0 0 1  0 -1 0 0 1  0 0 -1 0 1  0 0 0 1 0" color-interpolation-filters="sRGB" result="source"/>
+			<feFlood  style="flood-color:white;flood-opacity:1" result="back"/>
+			<feBlend  in="source" in2="back" mode="normal"/>
+		</filter>
+	</defs>
+	<mask maskUnits="userSpaceOnUse" x="0.72" y="226.29" width="934.56" height="317.41" id="SVGID_2_">
+		<g class="st1">
+			<g>
+				
+					<ellipse transform="matrix(0.9889 -0.1483 0.1483 0.9889 -46.5476 72.7244)" class="st2" cx="464.57" cy="348.61" rx="454" ry="117.5"/>
+			</g>
+		</g>
+	</mask>
+	<g class="st3">
+		
+			<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="-4" y1="385" x2="940" y2="385" gradientTransform="matrix(0.9889 -0.1483 0.1483 0.9889 -51.9049 73.6355)">
+			<stop  offset="0" style="stop-color:#14FFEC"/>
+			<stop  offset="1" style="stop-color:#0D7377"/>
+		</linearGradient>
+		<path class="st4" d="M934.78,315.03c11.79,78.65-187.64,173.74-445.44,212.38S13.01,533.62,1.22,454.97
+			s187.64-173.74,445.44-212.38S922.99,236.38,934.78,315.03z"/>
+	</g>
+</g>
+</svg>

@@ -1,0 +1,41 @@
+.main {
+    width: 100vw;
+    min-height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #212121;
+    color: white;
+    z-index: 2;
+}
+
+.main>* {
+    margin: 10px;
+}
+
+.logo {
+    font-size: 50px;
+    line-height: calc(10vh - 10px);
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    font-size: 20px;
+    list-style-type: none;
+}
+
+ul>li {
+    text-decoration: none;
+    margin: 0 20px;
+    display: block;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+ul>li:hover {
+    background-color: #14FFEC;
+    color: #212121
+}
