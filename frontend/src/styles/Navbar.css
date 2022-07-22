@@ -1,6 +1,6 @@
 .main {
     width: 100vw;
-    min-height: 10vh;
+    height: 10vh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -26,7 +26,7 @@ ul {
     list-style-type: none;
 }
 
-ul>li {
+li {
     text-decoration: none;
     margin: 0 20px;
     display: block;
@@ -35,7 +35,12 @@ ul>li {
     cursor: pointer;
 }
 
-ul>li:hover {
+li:hover {
     background-color: #14FFEC;
     color: #212121
+}
+
+a {
+    text-decoration: none;
+    color: white;
 }

@@ -7,8 +7,7 @@ import Navbar from './components/Navbar';
 import MainPage from './components/MainPage';
 import LoginForm from './components/LoginForm';
 import Verify from './components/Verify';
-import TestFile from './components/TestFile';
-import TestFile2 from './components/TestFile2';
+import About from './components/About';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 
@@ -22,24 +21,20 @@ function App() {
   }
 
   return (
-    <Router>
-      <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-        <GlobalStyles />
-        <StyledApp>
-          <Link to="/">Main</Link>
-          <Link to="/xxx">GUNWO</Link>
-          <MainPage />
-          <RegisterForm />
-          <LoginForm />
-
+    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+      <GlobalStyles />
+      <StyledApp>
+        <Router>
+          <Navbar />
           <Routes>
-            <Route path="/" element={<TestFile />} />
-            <Route path="/xxx" element={<TestFile2 />} />
-            <Route path="/verify" element={<Verify />} />
+            <Route path="/" element={<MainPage />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/register" element={<RegisterForm />} />
           </Routes>
-        </StyledApp>
-      </ThemeProvider>
-    </Router>
+        </Router>
+      </StyledApp>
+    </ThemeProvider>
   );
 }
 

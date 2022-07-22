@@ -6,18 +6,18 @@ import Hero from './Hero';
 
 export default function Navbar() {
     return (
+
         <div className='main'>
             <div className="logo">
-                <span>SpaceNotes</span>
+                <Link to="/"><span>SpaceNotes</span></Link>
             </div>
             <div className='nav'>
                 <ul>
-                    <li>Quick note</li>
-                    <li>Log in</li>
-                    <li>About</li>
+                    <Link to="/note"><li>Quick note</li></Link>
+                    <Link to="/login"><li>Log in</li></Link>
+                    <Link to="/about"><li>About</li></Link>
                 </ul>
             </div>
         </div>
-
     )
 }

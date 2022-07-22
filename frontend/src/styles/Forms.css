@@ -1,0 +1,67 @@
+.login,
+.register {
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #323232;
+}
+
+.login>span,
+.login>.pass-reset>span,
+.register>span {
+    color: white;
+    font-size: 60px;
+}
+
+.login>form,
+.register>form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=submit] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    display: inline-block;
+    border: 1px solid #14FFEC;
+    background-color: #121212;
+    color: white;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 25px;
+    font-weight: 400;
+}
+
+input[type=submit] {
+    background-color: #14FFEC;
+    border: 1px solid #121212;
+    color: #121212;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #24ff87;
+}
+
+.login>a:hover,
+.register>a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.pass-reset {
+    width: 40%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
