@@ -20,7 +20,7 @@ const server = http.createServer(function (req, res) {
         })
         req.on("end", async function () {
             userData = JSON.parse(userData)
-            userData.password = bcrypt.hashSync(userData.password, 5);
+            userData.password = bcrypt.hashSync(userData.password, 5)
             db.userAdd(userData, res)
         })
     }
@@ -37,7 +37,14 @@ const server = http.createServer(function (req, res) {
     }
 
     else if (req.url == "/userLogin" && req.method == "POST") {
-
+        let userData = ""
+        req.on("data", function (data) {
+            userData += data
+        })
+        req.on("end", async function () {
+            userData = JSON.parse(userData)
+            db.userLogin(userData, res)
+        })
     }
 
     else {

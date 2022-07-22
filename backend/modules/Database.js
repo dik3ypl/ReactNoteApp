@@ -1,6 +1,7 @@
 const { Client } = require('pg')
 const sql = require('yesql').pg
 const bcrypt = require("bcrypt")
+const uniqid = require('uniqid')
 const Mail = require('./Mail')
 
 const mail = new Mail()
@@ -14,17 +15,14 @@ module.exports = class Database {
     }
 
     addTest() {
-        this.connect()
-        this.client.query(sql("INSERT INTO arka (text) VALUES (:x)")({ x: 'szambo' }), (err, res) => {
-            this.client.end()
-        })
+        console.log('ex')
     }
 
     userAdd(data, response) {
         this.connect()
         this.client.query(sql("SELECT * FROM users WHERE email=:email")({ email: data.email }), (err, res) => {
             if (res.rows.length == 0) {
-                data.code = bcrypt.hashSync(Math.random().toString(), 5)
+                data.code = uniqid(uniqid(), uniqid())
                 data.verified = false
                 this.client.query(sql("INSERT INTO users (firstName, lastName, email, password, code, verified) VALUES (:firstName, :lastName, :email, :password, :code, :verified)")(data), (err, res) => {
                     this.client.end()
@@ -47,5 +45,13 @@ module.exports = class Database {
 
     userLogin(data, response) {
         this.connect()
+        this.client.query(sql("SELECT * FROM users WHERE email=:email")({ email: data.email }), (err, res) => {
+            bcrypt.compare(data.password, res.rows[0].password, function (err, result) {
+                if (result) {
+                    if (res.rows[0].verified) response.end(JSON.stringify({ status: "success", code: res.rows[0].code }))
+                    else response.end(JSON.stringify({ status: "fail", status: "Verify your account" }))
+                } else response.end(JSON.stringify({ status: "fail", status: "Invalid E-mail or password" }))
+            })
+        })
     }
 }
