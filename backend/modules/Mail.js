@@ -13,12 +13,16 @@ const transporter = nodemailer.createTransport({
 module.exports = class Mail {
     constructor() { }
 
-    verificationEmail(code) {
+    verificationEmail(email, code) {
         transporter.sendMail({
             from: 'spacenotes@zohomail.eu',
-            to: 'michalproc4@gmail.com',
+            to: email,
             subject: 'Account verification',
             html: `<a href="${config.domain}/verify?c=${code}">[LINK]</a>`
         })
+    }
+
+    changePassword(email) {
+
     }
 }

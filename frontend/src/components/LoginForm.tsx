@@ -22,7 +22,7 @@ export default function LoginForm() {
         event.preventDefault()
         let data = new FormData(event.target as HTMLFormElement)
         let dataJson = Object.fromEntries(data)
-        let res = await fetch("http://localhost:3001/resetPassword", {
+        let res = await fetch("http://localhost:3001/userResetPassword", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

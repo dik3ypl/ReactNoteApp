@@ -1,9 +1,11 @@
 const http = require("http")
 const bcrypt = require("bcrypt")
 const Database = require("./modules/Database")
+const Mail = require("./modules/mail")
 const PORT = 3001
 
 const db = new Database()
+const mail = new Mail()
 
 const server = http.createServer(function (req, res) {
     console.log(`${req.method} ${req.url}`)
@@ -44,6 +46,16 @@ const server = http.createServer(function (req, res) {
         req.on("end", async function () {
             userData = JSON.parse(userData)
             db.userLogin(userData, res)
+        })
+    }
+
+    else if (req.url == "/userResetPassword" && req.method == "POST") {
+        let userEmail = ""
+        req.on("data", function (data) {
+            userEmail += data
+        })
+        req.on("end", async function () {
+            db.userResetPasswordFirst(userEmail)
         })
     }
 
