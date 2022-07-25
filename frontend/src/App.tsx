@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import MainPage from './components/MainPage';
 import LoginForm from './components/LoginForm';
 import Verify from './components/Verify';
+import ResetPassword from './components/ResetPassword';
 import About from './components/About';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -31,6 +32,8 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/about" element={<About />} />
             <Route path="/register" element={<RegisterForm />} />
+            <Route path="/verify" element={<Verify />} />
+            <Route path="/resetPassword" element={<ResetPassword />} />
           </Routes>
         </Router>
       </StyledApp>

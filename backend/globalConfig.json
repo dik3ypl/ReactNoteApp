@@ -1,3 +1,6 @@
 {
-    "domain": "http://localhost:3000"
+    "domain": "http://localhost:3000",
+    "host": "smtp.zoho.eu",
+    "mail": "spacenotesx@zohomail.eu",
+    "password": "UuVtJzwXkzLD"
 }

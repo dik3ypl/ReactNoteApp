@@ -46,15 +46,17 @@ module.exports = class Database {
 
     userLogin(data, response) {
         this.connect()
+        const tmp = this
         this.client.query(sql("SELECT * FROM users WHERE email=:email")({ email: data.email }), (err, res) => {
+            data.code = uniqid(uniqid(), uniqid())
             this.client.end()
             bcrypt.compare(data.password, res.rows[0].password, function (err, result) {
                 if (result) {
                     if (res.rows[0].verified) {
                         response.end(JSON.stringify({ status: "success", code: res.rows[0].code }))
-                        this.connect()
-                        this.client.query(sql("UPDATE users SET changePassword='true' WHERE email=:email")({ email: data.email }), (err, res) => {
-                            this.client.end()
+                        tmp.connect()
+                        tmp.client.query(sql("UPDATE users SET changePassword='false', code=:code WHERE email=:email")({ email: data.email, code: data.code }), (err, res) => {
+                            tmp.client.end()
                         })
                     }
                     else response.end(JSON.stringify({ status: "fail", reason: "Verify your account" }))
@@ -64,6 +66,21 @@ module.exports = class Database {
     }
 
     userResetPasswordFirst(email) {
-        console.log(email)
+        this.connect()
+        const code = uniqid(uniqid(), uniqid())
+        this.client.query(sql("UPDATE users SET changePassword='true', code=:code WHERE email=:email")({ code: code, email: email.email }), (err, res) => {
+            this.client.end()
+            mail.resetPassword(email.email, code)
+        })
+    }
+
+    userResetPasswordSecond(data, response) {
+        this.connect()
+        data.newCode = uniqid(uniqid(), uniqid())
+        this.client.query(sql("UPDATE users SET changePassword='false', code=:newCode, password=:password WHERE code=:code AND changePassword='true'")(data), (err, res) => {
+            this.client.end()
+            if (res.rowCount == 0) response.end(JSON.stringify({ status: "fail" }))
+            else response.end(JSON.stringify({ status: "success" }))
+        })
     }
 }

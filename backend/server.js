@@ -55,7 +55,20 @@ const server = http.createServer(function (req, res) {
             userEmail += data
         })
         req.on("end", async function () {
+            userEmail = JSON.parse(userEmail)
             db.userResetPasswordFirst(userEmail)
+        })
+    }
+
+    else if (req.url == "/userResetPasswordEnd" && req.method == "POST") {
+        let userData = ""
+        req.on("data", function (data) {
+            userData += data
+        })
+        req.on("end", async function () {
+            userData = JSON.parse(userData)
+            userData.password = bcrypt.hashSync(userData.password, 5)
+            db.userResetPasswordSecond(userData, res)
         })
     }
 

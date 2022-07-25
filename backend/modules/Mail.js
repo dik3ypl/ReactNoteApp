@@ -2,11 +2,11 @@ const nodemailer = require('nodemailer')
 const config = require('../globalConfig.json')
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp.zoho.eu',
+    host: config.host,
     secure: true,
     auth: {
-        user: 'spacenotes@zohomail.eu',
-        pass: 'kbFXRQg25yHv'
+        user: config.mail,
+        pass: config.password
     }
 })
 
@@ -15,14 +15,19 @@ module.exports = class Mail {
 
     verificationEmail(email, code) {
         transporter.sendMail({
-            from: 'spacenotes@zohomail.eu',
+            from: config.mail,
             to: email,
             subject: 'Account verification',
             html: `<a href="${config.domain}/verify?c=${code}">[LINK]</a>`
         })
     }
 
-    changePassword(email) {
-
+    resetPassword(email, code) {
+        transporter.sendMail({
+            from: config.mail,
+            to: email,
+            subject: 'Reset password',
+            html: `<a href="${config.domain}/resetPassword?c=${code}">[LINK]</a>`
+        })
     }
 }
