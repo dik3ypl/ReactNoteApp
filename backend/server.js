@@ -1,7 +1,12 @@
 const http = require("http")
 const bcrypt = require("bcrypt")
+const fs = require("fs")
+const formidable = require('formidable')
+const path = require("path")
+
 const Database = require("./modules/Database")
-const Mail = require("./modules/mail")
+const Mail = require("./modules/Mail")
+const Helper = require("./modules/HelpFunctions")
 const PORT = 3001
 
 const db = new Database()
@@ -70,6 +75,15 @@ const server = http.createServer(function (req, res) {
             userData.password = bcrypt.hashSync(userData.password, 5)
             db.userResetPasswordSecond(userData, res)
         })
+    }
+
+    else if (req.url == "/sendImage" && req.method == "POST") {
+        const form = formidable({})
+        form.uploadDir = __dirname + "/files/"
+        form.parse(req, function (err, fields, files) {
+            if (files.file.mimetype == 'image/png') fs.rename(files.file.filepath, form.uploadDir + files.file.newFilename + '.png', (err) => Helper.errorOnImgSave(err, res))
+            if (files.file.mimetype == 'image/jpeg') fs.rename(files.file.filepath, form.uploadDir + files.file.newFilename + '.jpg', (err) => Helper.errorOnImgSave(err, res))
+        });
     }
 
     else {
