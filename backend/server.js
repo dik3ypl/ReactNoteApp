@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt")
 const fs = require("fs")
 const formidable = require('formidable')
 const path = require("path")
+const config = require('./globalConfig.json')
 
 const Database = require("./modules/Database")
 const Mail = require("./modules/Mail")
@@ -74,6 +75,17 @@ const server = http.createServer(function (req, res) {
             userData = JSON.parse(userData)
             userData.password = bcrypt.hashSync(userData.password, 5)
             db.userResetPasswordSecond(userData, res)
+        })
+    }
+
+    else if (req.url == "/userCode" && req.method == "POST") {
+        let userCode = ""
+        req.on("data", function (data) {
+            userCode += data
+        })
+        req.on("end", async function () {
+            userCode = JSON.parse(userCode)
+            console.log(userCode)
         })
     }
 

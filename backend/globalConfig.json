@@ -1,6 +1,6 @@
 {
     "domain": "http://localhost:3000",
-    "host": "smtp.zoho.eu",
-    "mail": "spacenotesx@zohomail.eu",
-    "password": "UuVtJzwXkzLD"
+    "host": "smtp.office365.com",
+    "mail": "space.notes@outlook.com",
+    "password": "jakubWiech"
 }
