@@ -6,7 +6,19 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #323232;
+    background-color: #201240;
+    position: relative;
+    z-index: 0;
+}
+
+.msg-div {
+    position: relative;
+    z-index: 1;
+}
+
+.msg {
+    font-size: 40px;
+    color: white;
 }
 
 .login>span,
@@ -23,16 +35,19 @@
     flex-direction: column;
 }
 
+
+
 input[type=text],
 input[type=email],
 input[type=password],
 input[type=submit] {
+    font-family: 'Comfortaa';
     width: 100%;
     padding: 12px;
     margin: 10px 0;
     display: inline-block;
-    border: 1px solid #14FFEC;
-    background-color: #121212;
+    border: 1px solid #f28e13;
+    background-color: #0e0b26;
     color: white;
     border-radius: 5px;
     box-sizing: border-box;
@@ -41,14 +56,39 @@ input[type=submit] {
 }
 
 input[type=submit] {
-    background-color: #14FFEC;
-    border: 1px solid #121212;
-    color: #121212;
+    background-color: #f28e13;
+    border: 1px solid #0e0b26;
+    color: white;
     cursor: pointer;
 }
 
 input[type=submit]:hover {
-    background-color: #24ff87;
+    background-color: #f9dc2b;
+    color: black;
+}
+
+:-webkit-autofill {
+    background-color: #502D73 !important;
+    color: white !important;
+}
+
+.exitBt {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    display: inline-block;
+    border: 1px solid #121212;
+    background-color: #fd5742;
+    color: #121212;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 25px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.exitBt:hover {
+    background-color: #ff1e00;
 }
 
 .login>a:hover,
@@ -59,9 +99,14 @@ input[type=submit]:hover {
 
 .pass-reset {
     width: 40%;
-    height: 30%;
+    height: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    z-index: 2;
+    background-color: #121212;
+    border-radius: 10px;
+    border: 1px solid #f28e13;
 }

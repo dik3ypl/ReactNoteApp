@@ -1,8 +1,10 @@
-import React, { FormEvent } from 'react'
+import React, { FormEvent, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/Forms.css'
+import QuickMessage from './QuickMessage'
 
 export default function RegisterForm() {
+    const [msgVisible, successLogin] = useState(false)
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault()
@@ -30,6 +32,11 @@ export default function RegisterForm() {
             </form>
             <Link to="/login">Go back to login</Link>
             <Link to="/guest">Entry as a guest</Link>
+            {msgVisible ?
+                <QuickMessage text='Now, confirm your e-mail.' />
+                :
+                null
+            }
         </div>
     )
 }

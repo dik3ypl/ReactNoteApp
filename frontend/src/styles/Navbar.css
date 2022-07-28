@@ -1,42 +1,53 @@
-.main {
+.main-bar {
     width: 100vw;
     height: 10vh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: #212121;
+    background-color: #0e0B26;
     color: white;
+    position: relative;
     z-index: 2;
 }
 
-.main>* {
+.main-bar>* {
     margin: 10px;
 }
 
 .logo {
+    margin-left: 40px;
     font-size: 50px;
     line-height: calc(10vh - 10px);
 }
 
-ul {
+ul.nav {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    font-size: 20px;
+    align-items: center;
+    font-size: 25px;
     list-style-type: none;
 }
 
-li {
-    text-decoration: none;
-    margin: 0 20px;
-    display: block;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
+ul.nav a:last-child {
+    margin-right: 40px;
+    border-radius: 0 10px 10px 0;
 }
 
-li:hover {
-    background-color: #14FFEC;
+ul.nav a:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+ul.nav>a {
+    text-decoration: none;
+    display: block;
+    padding: 10px 24px;
+    cursor: pointer;
+    background-color: #f28e13;
+}
+
+ul.nav>a:hover {
+    background-color: #f9dc2b;
     color: #212121
 }
 
