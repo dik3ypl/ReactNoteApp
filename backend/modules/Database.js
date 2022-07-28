@@ -14,10 +14,6 @@ module.exports = class Database {
         this.client.connect()
     }
 
-    addTest() {
-        console.log('ex')
-    }
-
     userAdd(data, response) {
         this.connect()
         this.client.query(sql("SELECT * FROM users WHERE email=:email")({ email: data.email }), (err, res) => {
@@ -48,14 +44,13 @@ module.exports = class Database {
         this.connect()
         const tmp = this
         this.client.query(sql("SELECT * FROM users WHERE email=:email")({ email: data.email }), (err, res) => {
-            data.code = uniqid(uniqid(), uniqid())
             this.client.end()
             bcrypt.compare(data.password, res.rows[0].password, function (err, result) {
                 if (result) {
                     if (res.rows[0].verified) {
                         response.end(JSON.stringify({ status: "success", code: res.rows[0].code }))
                         tmp.connect()
-                        tmp.client.query(sql("UPDATE users SET changePassword='false', code=:code WHERE email=:email")({ email: data.email, code: data.code }), (err, res) => {
+                        tmp.client.query(sql("UPDATE users SET changePassword='false' WHERE email=:email")({ email: data.email }), (err, res) => {
                             tmp.client.end()
                         })
                     }
