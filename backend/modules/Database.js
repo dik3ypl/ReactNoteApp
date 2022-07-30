@@ -48,9 +48,17 @@ module.exports = class Database {
             bcrypt.compare(data.password, res.rows[0].password, function (err, result) {
                 if (result) {
                     if (res.rows[0].verified) {
-                        response.end(JSON.stringify({ status: "success", code: res.rows[0].code }))
+                        const code = uniqid(uniqid(), uniqid())
+                        response.end(JSON.stringify({ status: "success", code: code }))
+
                         tmp.connect()
                         tmp.client.query(sql("UPDATE users SET changePassword='false' WHERE email=:email")({ email: data.email }), (err, res) => {
+                            tmp.client.end()
+                        })
+                        tmp.connect()
+
+                        const date = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getMonth()}`
+                        tmp.client.query(sql("INSERT INTO sessions (email, code, date) VALUES (:email, :code, :date)")({ email: data.email, code: code, date: date }), (err, res) => {
                             tmp.client.end()
                         })
                     }
