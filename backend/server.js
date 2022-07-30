@@ -5,7 +5,7 @@ const formidable = require('formidable')
 const path = require("path")
 const config = require('./globalConfig.json')
 
-const Database = require("./modules/Database")
+const Database = require("./modules/UserDatabase")
 const Mail = require("./modules/Mail")
 const Helper = require("./modules/HelpFunctions")
 const PORT = 3001
