@@ -13,7 +13,7 @@ export default function Navbar() {
             </div>
             <ul className='nav'>
                 <Link to="/note"><li>Quick note</li></Link>
-                <Link to="/login"><li>Log in</li></Link>
+                <Link to="/login"><li>Sign in</li></Link>
                 <Link to="/about"><li>About</li></Link>
             </ul>
         </div>

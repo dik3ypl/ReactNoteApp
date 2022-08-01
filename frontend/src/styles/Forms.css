@@ -1,7 +1,7 @@
 .login,
 .register {
     width: 100vw;
-    height: 90vh;
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,8 +12,15 @@
 }
 
 .msg-div {
+    width: 100vw;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #201240;
     position: relative;
-    z-index: 1;
+    z-index: 0;
 }
 
 .msg {
@@ -72,6 +79,25 @@ input[type=submit]:hover {
     color: white !important;
 }
 
+.normalBt {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    display: inline-block;
+    background-color: #f28e13;
+    color: white;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 25px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.normalBt:hover {
+    background-color: #f9dc2b;
+    color: black;
+}
+
 .exitBt {
     width: 100%;
     padding: 12px;
@@ -109,4 +135,17 @@ input[type=submit]:hover {
     background-color: #121212;
     border-radius: 10px;
     border: 1px solid #f28e13;
+}
+
+.formError {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ff1e00;
+    background-color: #0e0B26;
+    color: white;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 20px;
+    font-weight: 200;
 }

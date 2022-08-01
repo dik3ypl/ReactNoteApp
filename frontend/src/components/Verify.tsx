@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSearchParams } from "react-router-dom";
 import config from '../globalConfig.json'
+import { Link } from 'react-router-dom';
 
 export default function RegisterForm() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -17,9 +18,9 @@ export default function RegisterForm() {
     }, [])
 
     return (
-        <div className="main">
-            <h1>Account verified</h1>
-            <button>Log in</button>
+        <div className='msg-div'>
+            <span className='msg'>Account verified, now you can sign in.</span>
+            <Link to='/login'><button className='normalBt'>Sign in</button></Link>
         </div>
     )
 }

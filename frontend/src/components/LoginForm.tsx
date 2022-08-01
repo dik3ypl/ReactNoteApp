@@ -1,12 +1,14 @@
 import React, { FormEvent, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
 import styled from 'styled-components'
 import QuickMessage from './QuickMessage'
 import '../styles/Forms.css'
 
 export default function LoginForm() {
     const [resetPasswordVisible, toggleVisibility] = useState(false)
-    const [msgVisible, successLogin] = useState(false)
+    const [cookies, setCookie, removeCookie] = useCookies(['session-code', 'session-uid']);
+    let navigate = useNavigate()
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault()
@@ -19,9 +21,10 @@ export default function LoginForm() {
             },
             body: JSON.stringify(dataJson)
         }).then(res => res.json())
-        if (res.status == 'success') {
-
-            successLogin(true)
+        if (res.status == "success") {
+            setCookie('session-code', res.code)
+            setCookie('session-uid', res.uid)
+            navigate('/')
         }
     }
 
@@ -36,7 +39,6 @@ export default function LoginForm() {
             },
             body: JSON.stringify(dataJson)
         }).then(res => res.json())
-
     }
 
     return (
@@ -58,14 +60,9 @@ export default function LoginForm() {
                 <input name="password" type="password" placeholder="Password" />
                 <input type="submit" value="Done!" />
             </form>
-            <Link to="/register">Don't have an account?</Link>
+            <Link to="/register">Sign up</Link>
             <Link to="/guest">Entry as a guest</Link>
             <a onClick={() => toggleVisibility(!resetPasswordVisible)}>Forgot password?</a>
-            {msgVisible ?
-                <QuickMessage text='Success!' />
-                :
-                null
-            }
         </div>
     )
 }

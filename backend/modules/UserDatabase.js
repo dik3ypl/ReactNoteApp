@@ -49,7 +49,7 @@ module.exports = class Database {
                 if (result) {
                     if (res.rows[0].verified) {
                         const code = uniqid(uniqid(), uniqid())
-                        response.end(JSON.stringify({ status: "success", code: code }))
+                        response.end(JSON.stringify({ status: "success", uid: res.rows[0].id, code: code }))
 
                         tmp.connect()
                         tmp.client.query(sql("UPDATE users SET changePassword='false' WHERE email=:email")({ email: data.email }), (err, res) => {
