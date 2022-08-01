@@ -58,13 +58,20 @@ module.exports = class Database {
                         tmp.connect()
 
                         const date = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getMonth()}`
-                        tmp.client.query(sql("INSERT INTO sessions (email, code, date) VALUES (:email, :code, :date)")({ email: data.email, code: code, date: date }), (err, res) => {
+                        tmp.client.query(sql("INSERT INTO sessions (userId, code, date) VALUES (:id, :code, :date)")({ id: res.rows[0].id, code: code, date: date }), (err, res) => {
                             tmp.client.end()
                         })
                     }
                     else response.end(JSON.stringify({ status: "fail", reason: "Verify your account" }))
                 } else response.end(JSON.stringify({ status: "fail", reason: "Invalid E-mail or password" }))
             })
+        })
+    }
+
+    userVerifySession(code) {
+        this.connect()
+        this.client.query(sql("SELECT * FROM sessions WHERE code=:code")({ code: code }), (err, res) => {
+            console.log(res)
         })
     }
 
