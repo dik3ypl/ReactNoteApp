@@ -99,6 +99,17 @@ const server = http.createServer(function (req, res) {
         });
     }
 
+    else if (req.url == "/checkSession" && req.method == "POST") {
+        let userCode = ""
+        req.on("data", function (data) {
+            userCode += data
+        })
+        req.on("end", function () {
+            userCode = JSON.parse(userCode)
+            db.userVerifySession(userCode.user)
+        })
+    }
+
     else {
         res.end()
     }

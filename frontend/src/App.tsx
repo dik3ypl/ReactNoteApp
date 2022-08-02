@@ -9,6 +9,7 @@ import LoginForm from './components/LoginForm';
 import Verify from './components/Verify';
 import ResetPassword from './components/ResetPassword';
 import About from './components/About';
+import Hero from './components/Hero';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 
@@ -28,7 +29,7 @@ function App() {
         <Router>
           <Navbar />
           <Routes>
-            <Route path="/" element={<MainPage />} />
+            <Route path="/" element={<Hero />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/about" element={<About />} />
             <Route path="/register" element={<RegisterForm />} />

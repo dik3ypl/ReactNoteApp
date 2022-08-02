@@ -21,10 +21,10 @@ export default function LoginForm() {
             },
             body: JSON.stringify(dataJson)
         }).then(res => res.json())
+        console.log(res)
         if (res.status == "success") {
             setCookie('session-code', res.code)
             setCookie('session-uid', res.uid)
-            navigate('/')
         }
     }
 

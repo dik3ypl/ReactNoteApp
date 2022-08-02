@@ -45,33 +45,48 @@ module.exports = class Database {
         const tmp = this
         this.client.query(sql("SELECT * FROM users WHERE email=:email")({ email: data.email }), (err, res) => {
             this.client.end()
-            bcrypt.compare(data.password, res.rows[0].password, function (err, result) {
-                if (result) {
-                    if (res.rows[0].verified) {
-                        const code = uniqid(uniqid(), uniqid())
-                        response.end(JSON.stringify({ status: "success", uid: res.rows[0].id, code: code }))
+            if (!res.rows[0]) {
+                response.end(JSON.stringify({ status: "fail", reason: "Invalid e-mail or password" }))
+            } else {
+                bcrypt.compare(data.password, res.rows[0].password, function (err, result) {
+                    if (result) {
+                        if (res.rows[0].verified) {
+                            const code = uniqid(uniqid(), uniqid())
+                            response.end(JSON.stringify({ status: "success", uid: res.rows[0].id, code: code }))
 
-                        tmp.connect()
-                        tmp.client.query(sql("UPDATE users SET changePassword='false' WHERE email=:email")({ email: data.email }), (err, res) => {
-                            tmp.client.end()
-                        })
-                        tmp.connect()
+                            tmp.connect()
+                            tmp.client.query(sql("UPDATE users SET changePassword='false' WHERE email=:email")({ email: data.email }), (err, res) => {
+                                tmp.client.end()
+                            })
+                            tmp.connect()
 
-                        const date = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getMonth()}`
-                        tmp.client.query(sql("INSERT INTO sessions (userId, code, date) VALUES (:id, :code, :date)")({ id: res.rows[0].id, code: code, date: date }), (err, res) => {
-                            tmp.client.end()
-                        })
-                    }
-                    else response.end(JSON.stringify({ status: "fail", reason: "Verify your account" }))
-                } else response.end(JSON.stringify({ status: "fail", reason: "Invalid E-mail or password" }))
-            })
+                            const date = `${Date.now()}`
+                            tmp.client.query(sql(`INSERT INTO sessions (userId, code, date) VALUES (:id, :code, to_timestamp(${Date.now() + 10800000} / 1000))`)({ id: res.rows[0].id, code: code }), (err, res) => {
+                                tmp.client.end()
+                            })
+                        }
+                        else response.end(JSON.stringify({ status: "fail", reason: "Verify your account" }))
+                    } else response.end(JSON.stringify({ status: "fail", reason: "Invalid e-mail or password" }))
+                })
+            }
         })
     }
 
-    userVerifySession(code) {
+    userVerifySession(uid) {
+        // this.connect()
+        // let currentDate = `${Date.now()}`
+        // this.client.query(sql(`SELECT * FROM sessions WHERE date < to_timestamp(${Date.now() / 1000})`), (err, res) => {
+        //     this.client.end()
+        //     if (res) {
+        //         console.log(res.rows)
+        //     }
+        // })
         this.connect()
-        this.client.query(sql("SELECT * FROM sessions WHERE code=:code")({ code: code }), (err, res) => {
-            console.log(res)
+        this.client.query(sql("SELECT * FROM sessions WHERE userid=:uid")({ uid: uid }), (err, res) => {
+            this.client.end()
+            if (res) {
+                console.log(res.rows[0])
+            }
         })
     }
 
