@@ -85,7 +85,6 @@ const server = http.createServer(function (req, res) {
         })
         req.on("end", async function () {
             userCode = JSON.parse(userCode)
-            console.log(userCode)
             db.userVerifySession(userCode.code)
         })
     }
