@@ -61,14 +61,21 @@ module.exports = class Database {
         })
     }
 
-    async userVerifySession(uid) {
+    async userVerifySession(uid, response) {
         await this.client.query(sql(`DELETE FROM sessions WHERE date < now()`)({}))
 
         this.client.query(sql("SELECT * FROM sessions WHERE userid=:uid")({ uid: uid }), (err, res) => {
             if (res) {
-                console.log(res.rows)
+                if (res.rows.length > 0) response.end(JSON.stringify({ session: true }))
+                else response.end(JSON.stringify({ session: false }))
             }
         })
+    }
+
+    async userLongerSession(uid, response) {
+        await this.client.query(sql(`DELETE FROM sessions WHERE date < now()`)({}))
+
+        this.client.query(sql(`UPDATE sessions SET date=to_timestamp(${Date.now() + 10800000} / 1000) WHERE userid=:uid`)({ uid: uid }))
     }
 
     async userResetPasswordFirst(email) {

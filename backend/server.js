@@ -26,7 +26,7 @@ const server = http.createServer(function (req, res) {
         req.on("data", function (data) {
             userData += data
         })
-        req.on("end", async function () {
+        req.on("end", function () {
             userData = JSON.parse(userData)
             userData.password = bcrypt.hashSync(userData.password, 5)
             db.userAdd(userData, res)
@@ -49,7 +49,7 @@ const server = http.createServer(function (req, res) {
         req.on("data", function (data) {
             userData += data
         })
-        req.on("end", async function () {
+        req.on("end", function () {
             userData = JSON.parse(userData)
             db.userLogin(userData, res)
         })
@@ -60,7 +60,7 @@ const server = http.createServer(function (req, res) {
         req.on("data", function (data) {
             userEmail += data
         })
-        req.on("end", async function () {
+        req.on("end", function () {
             userEmail = JSON.parse(userEmail)
             db.userResetPasswordFirst(userEmail)
         })
@@ -71,21 +71,10 @@ const server = http.createServer(function (req, res) {
         req.on("data", function (data) {
             userData += data
         })
-        req.on("end", async function () {
+        req.on("end", function () {
             userData = JSON.parse(userData)
             userData.password = bcrypt.hashSync(userData.password, 5)
             db.userResetPasswordSecond(userData, res)
-        })
-    }
-
-    else if (req.url == "/userCode" && req.method == "POST") {
-        let userCode = ""
-        req.on("data", function (data) {
-            userCode += data
-        })
-        req.on("end", async function () {
-            userCode = JSON.parse(userCode)
-            db.userVerifySession(userCode.code)
         })
     }
 
@@ -105,7 +94,18 @@ const server = http.createServer(function (req, res) {
         })
         req.on("end", function () {
             userCode = JSON.parse(userCode)
-            db.userVerifySession(userCode.user)
+            db.userVerifySession(userCode.user, res)
+        })
+    }
+
+    else if (req.url == "/longerSession" && req.method == "POST") {
+        let sessionCode = ""
+        req.on("data", function (data) {
+            sessionCode += data
+        })
+        req.on("end", function () {
+            sessionCode = JSON.parse(sessionCode)
+            db.userLongerSession(sessionCode.user, res)
         })
     }
 

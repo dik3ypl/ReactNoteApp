@@ -16,6 +16,16 @@ export default function Hero() {
                 body: JSON.stringify({ user: cookies["session-uid"] })
             }).then(res => res.json()).then(res => console.log(res))
         }
+
+        if (cookies['session-uid']) {
+            fetch("http://localhost:3001/longerSession", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user: cookies["session-uid"] })
+            }).then(res => res.json()).then(res => console.log(res))
+        }
     }, [])
 
     return (
