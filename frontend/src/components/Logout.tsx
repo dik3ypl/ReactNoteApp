@@ -14,6 +14,16 @@ export default function Logout({ session }: { session: Boolean }) {
     })
 
     const logoutFunc = () => {
+        if (cookies['session-uid'] && cookies['session-code']) {
+            fetch("http://localhost:3001/deleteSession", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user: cookies["session-uid"], code: cookies["session-code"] })
+            })
+        }
+
         removeCookie('session-code')
         removeCookie('session-uid')
         navigate('/')
