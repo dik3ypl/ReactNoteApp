@@ -72,6 +72,10 @@ module.exports = class Database {
         })
     }
 
+    userDelSession(data) {
+        this.client.query(sql(`DELETE FROM sessions WHERE userid=:user AND code=:code`)(data))
+    }
+
     async userLongerSession(uid, code, response) {
         await this.client.query(sql(`DELETE FROM sessions WHERE date < now()`)({}))
 

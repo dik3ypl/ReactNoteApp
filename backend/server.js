@@ -5,12 +5,14 @@ const formidable = require('formidable')
 const path = require("path")
 const config = require('./globalConfig.json')
 
-const Database = require("./modules/UserDatabase")
+const UserDatabase = require("./modules/UserDatabase")
+const NoteDatabase = require("./modules/NoteDatabase")
 const Mail = require("./modules/Mail")
 const Helper = require("./modules/HelpFunctions")
 const PORT = 3001
 
-const db = new Database()
+const dbUser = new UserDatabase()
+const dbNote = new NoteDatabase()
 const mail = new Mail()
 
 const server = http.createServer(function (req, res) {
@@ -29,7 +31,7 @@ const server = http.createServer(function (req, res) {
         req.on("end", function () {
             userData = JSON.parse(userData)
             userData.password = bcrypt.hashSync(userData.password, 5)
-            db.userAdd(userData, res)
+            dbUser.userAdd(userData, res)
         })
     }
 
@@ -40,7 +42,7 @@ const server = http.createServer(function (req, res) {
         })
         req.on("end", function () {
             userCode = JSON.parse(userCode)
-            db.userVerify(userCode)
+            dbUser.userVerify(userCode)
         })
     }
 
@@ -51,7 +53,7 @@ const server = http.createServer(function (req, res) {
         })
         req.on("end", function () {
             userData = JSON.parse(userData)
-            db.userLogin(userData, res)
+            dbUser.userLogin(userData, res)
         })
     }
 
@@ -62,7 +64,7 @@ const server = http.createServer(function (req, res) {
         })
         req.on("end", function () {
             userEmail = JSON.parse(userEmail)
-            db.userResetPasswordFirst(userEmail)
+            dbUser.userResetPasswordFirst(userEmail)
         })
     }
 
@@ -74,7 +76,7 @@ const server = http.createServer(function (req, res) {
         req.on("end", function () {
             userData = JSON.parse(userData)
             userData.password = bcrypt.hashSync(userData.password, 5)
-            db.userResetPasswordSecond(userData, res)
+            dbUser.userResetPasswordSecond(userData, res)
         })
     }
 
@@ -94,7 +96,7 @@ const server = http.createServer(function (req, res) {
         })
         req.on("end", function () {
             userCode = JSON.parse(userCode)
-            db.userVerifySession(userCode.user, userCode.code, res)
+            dbUser.userVerifySession(userCode.user, userCode.code, res)
         })
     }
 
@@ -105,7 +107,18 @@ const server = http.createServer(function (req, res) {
         })
         req.on("end", function () {
             sessionCode = JSON.parse(sessionCode)
-            db.userLongerSession(sessionCode.user, sessionCode.code, res)
+            dbUser.userLongerSession(sessionCode.user, sessionCode.code, res)
+        })
+    }
+
+    else if (req.url == "/deleteSession" && req.method == "POST") {
+        let sessionData = ""
+        req.on("data", function (data) {
+            sessionData += data
+        })
+        req.on("end", function () {
+            sessionData = JSON.parse(sessionData)
+            dbUser.userDelSession(sessionData)
         })
     }
 
