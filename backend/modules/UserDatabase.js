@@ -61,21 +61,21 @@ module.exports = class Database {
         })
     }
 
-    async userVerifySession(uid, response) {
+    async userVerifySession(uid, code, response) {
         await this.client.query(sql(`DELETE FROM sessions WHERE date < now()`)({}))
 
-        this.client.query(sql("SELECT * FROM sessions WHERE userid=:uid")({ uid: uid }), (err, res) => {
+        this.client.query(sql("SELECT sessions.userid, sessions.code, users.firstname FROM sessions INNER JOIN users ON users.id = sessions.userid WHERE sessions.userid=:uid AND sessions.code=:code")({ uid: uid, code: code }), (err, res) => {
             if (res) {
-                if (res.rows.length > 0) response.end(JSON.stringify({ session: true }))
+                if (res.rows.length > 0) response.end(JSON.stringify({ session: true, name: res.rows[0].firstname }))
                 else response.end(JSON.stringify({ session: false }))
             }
         })
     }
 
-    async userLongerSession(uid, response) {
+    async userLongerSession(uid, code, response) {
         await this.client.query(sql(`DELETE FROM sessions WHERE date < now()`)({}))
 
-        this.client.query(sql(`UPDATE sessions SET date=to_timestamp(${Date.now() + 10800000} / 1000) WHERE userid=:uid`)({ uid: uid }))
+        this.client.query(sql(`UPDATE sessions SET date=to_timestamp(${Date.now() + 10800000} / 1000) WHERE userid=:uid AND code=:code`)({ uid: uid, code: code }))
     }
 
     async userResetPasswordFirst(email) {

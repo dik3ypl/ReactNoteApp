@@ -25,6 +25,7 @@ export default function LoginForm() {
         if (res.status == "success") {
             setCookie('session-code', res.code)
             setCookie('session-uid', res.uid)
+            navigate("/")
         }
     }
 
@@ -49,7 +50,7 @@ export default function LoginForm() {
                     <form onSubmit={sendResetMail}>
                         <input type="email" name="email" placeholder='E-mail address' />
                         <input type="submit" />
-                        <button className='exitBt' onClick={() => toggleVisibility(!resetPasswordVisible)}>Anuluj</button>
+                        <button className='exitBt' onClick={() => toggleVisibility(!resetPasswordVisible)}>Return</button>
                     </form>
                 </div>
                 : null

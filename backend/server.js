@@ -94,7 +94,7 @@ const server = http.createServer(function (req, res) {
         })
         req.on("end", function () {
             userCode = JSON.parse(userCode)
-            db.userVerifySession(userCode.user, res)
+            db.userVerifySession(userCode.user, userCode.code, res)
         })
     }
 
@@ -105,7 +105,7 @@ const server = http.createServer(function (req, res) {
         })
         req.on("end", function () {
             sessionCode = JSON.parse(sessionCode)
-            db.userLongerSession(sessionCode.user, res)
+            db.userLongerSession(sessionCode.user, sessionCode.code, res)
         })
     }
 
